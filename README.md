@@ -1,35 +1,62 @@
-# tjstudios-manage
+# TJ Studios Manage
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+TJ Studios Manage is a Docker-host management dashboard built with Next.js, React, and Tailwind CSS.
 
-## Built with v0
+## Current status
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+The repository currently contains the dashboard UI foundation. It is **not yet connected** to a Docker Engine or a TJ Studios host agent.
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_USV2TfvDI0u9vdCgSWE0sC77jXvT)
+To keep operational information trustworthy, the dashboard does not display fabricated container counts, host metrics, or resource usage. The overview shows an explicit disconnected state until a real, authenticated data source is available.
 
-## Getting Started
+### Planned capabilities
 
-First, run the development server:
+- Container inventory, status, logs, and lifecycle operations
+- Docker image and registry management
+- Docker network and volume management
+- Host CPU, memory, disk, and availability metrics
+- Authenticated access and role-based permissions
+- Audit history for administrative actions
+
+These are planned capabilities, not currently available features.
+
+## Technology
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Radix UI components
+- pnpm
+
+## Requirements
+
+- Node.js 22 or newer
+- pnpm
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production build
 
-## Learn More
+```bash
+pnpm build
+pnpm start
+```
 
-To learn more, take a look at the following resources:
+## Security architecture requirements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+A future Docker integration must not expose the Docker socket directly to the public-facing Next.js application. Host operations should be performed through a separately authenticated host agent or restricted control service with:
 
-<a href="https://v0.app/chat/api/kiro/clone/tjstudios-llc/tjstudios-manage" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+- Explicitly allowlisted operations
+- Strong service-to-service authentication
+- Authorization checks for every administrative action
+- Input validation and bounded resource limits
+- Audit logging for state-changing operations
+
+Do not treat the current UI as a production Docker control plane until those integrations and controls are implemented and tested.

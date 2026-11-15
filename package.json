@@ -1,7 +1,8 @@
 {
-  "name": "my-project",
+  "name": "tjstudios-manage",
   "version": "0.1.0",
   "private": true,
+  "description": "Docker host management dashboard for TJ Studios",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
